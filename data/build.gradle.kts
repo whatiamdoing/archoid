@@ -1,21 +1,17 @@
 plugins {
-	id("com.android.application")
-	id("org.jetbrains.kotlin.android") version "1.9.0"
-	id("com.google.devtools.ksp") version "1.9.0-1.0.12"
+	id("com.android.library")
+	id("org.jetbrains.kotlin.android")
 }
 
 android {
-	namespace = "com.archoid"
-	compileSdk = 34
+	namespace = "com.archoid.data"
+	compileSdk = 33
 
 	defaultConfig {
-		applicationId = "whatiamdoing.archoid"
 		minSdk = 24
-		targetSdk = 33
-		versionCode = 1
-		versionName = "1.0"
 
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+		consumerProguardFiles("consumer-rules.pro")
 	}
 
 	buildTypes {
@@ -31,7 +27,6 @@ android {
 		sourceCompatibility = JavaVersion.VERSION_1_8
 		targetCompatibility = JavaVersion.VERSION_1_8
 	}
-
 	kotlinOptions {
 		jvmTarget = "1.8"
 	}
@@ -39,18 +34,13 @@ android {
 
 dependencies {
 	implementation(project(":domain"))
-	implementation(project(":data"))
-	implementation(project(":core-ui"))
-	implementation(project(":navigation"))
+	implementation(project(":data-api-local"))
+	implementation(project(":data-api-remote"))
 
 	implementation("androidx.core:core-ktx:1.12.0")
 	implementation("androidx.appcompat:appcompat:1.6.1")
-	implementation("com.google.android.material:material:1.9.0")
-	implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+	implementation("com.google.android.material:material:1.10.0")
 	testImplementation("junit:junit:4.13.2")
 	androidTestImplementation("androidx.test.ext:junit:1.1.5")
 	androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
-	ksp("com.google.dagger:dagger-compiler:2.48")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }
