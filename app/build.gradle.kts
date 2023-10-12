@@ -1,17 +1,19 @@
+import com.archoid.dependencies.Dependencies
+
 plugins {
 	id("com.android.application")
-	id("org.jetbrains.kotlin.android") version "1.9.0"
-	id("com.google.devtools.ksp") version "1.9.0-1.0.12"
+	id("org.jetbrains.kotlin.android")
+	id("com.google.devtools.ksp")
 }
 
 android {
-	namespace = "com.archoid"
-	compileSdk = 34
+	namespace = "com.archoid.app"
+	compileSdk = com.archoid.dependencies.ProjectConfig.compileSdkVersion
 
 	defaultConfig {
-		applicationId = "whatiamdoing.archoid"
-		minSdk = 24
-		targetSdk = 33
+		applicationId = com.archoid.dependencies.ProjectConfig.applicationId
+		minSdk = com.archoid.dependencies.ProjectConfig.minSdkVersion
+		targetSdk = com.archoid.dependencies.ProjectConfig.targetSdkVersion
 		versionCode = 1
 		versionName = "1.0"
 
@@ -51,6 +53,8 @@ dependencies {
 	androidTestImplementation("androidx.test.ext:junit:1.1.5")
 	androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-	ksp("com.google.dagger:dagger-compiler:2.48")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+	implementation(Dependencies.dagger)
+	ksp(Dependencies.daggerCompiler)
+
+	implementation(Dependencies.Kotlin.coroutines)
 }
