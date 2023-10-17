@@ -1,3 +1,6 @@
+import com.archoid.modules.Modules
+import com.archoid.utils.withProjects
+
 plugins {
 	`android-library`
 	`kotlin-android`
@@ -9,8 +12,8 @@ android {
 	namespace = "com.archoid.data"
 }
 
-dependencies {
-	implementation(project(":domain"))
-	implementation(project(":data-api-local"))
-	implementation(project(":data-api-remote"))
-}
+withProjects(
+	Modules.Domain,
+	Modules.DataApiLocal,
+	Modules.DataApiRemote
+)

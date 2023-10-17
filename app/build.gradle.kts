@@ -1,4 +1,6 @@
 import com.archoid.dependencies.Dependencies
+import com.archoid.modules.Modules
+import com.archoid.utils.withProjects
 
 plugins {
 	id("com.android.application")
@@ -37,14 +39,20 @@ android {
 	kotlinOptions {
 		jvmTarget = "1.8"
 	}
+
+	viewBinding {
+		enable = true
+	}
 }
 
-dependencies {
-	implementation(project(":domain"))
-	implementation(project(":data"))
-	implementation(project(":core-ui"))
-	implementation(project(":navigation"))
+withProjects(
+	Modules.Domain,
+	Modules.Data,
+	Modules.CoreUi,
+	Modules.Navigation
+)
 
+dependencies {
 	implementation("androidx.core:core-ktx:1.12.0")
 	implementation("androidx.appcompat:appcompat:1.6.1")
 	implementation("com.google.android.material:material:1.9.0")
@@ -57,4 +65,5 @@ dependencies {
 	ksp(Dependencies.daggerCompiler)
 
 	implementation(Dependencies.Kotlin.coroutines)
+	implementation(Dependencies.viewBindingDelegate)
 }
