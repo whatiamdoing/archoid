@@ -16,11 +16,15 @@ dependencyResolutionManagement {
 rootProject.name = "archoid"
 
 include(":app")
+
+include(":core-ui")
+
+include(":feature:launch")
+
 include(":domain")
+
 include(":data")
 include(":data-api-remote")
 include(":data-api-local")
-include(":navigation")
-include(":core-ui")
+
 include(":global")
-include(":feature:launch")

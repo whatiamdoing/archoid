@@ -48,8 +48,11 @@ android {
 withProjects(
 	Modules.Domain,
 	Modules.Data,
-	Modules.CoreUi,
-	Modules.Navigation
+	Modules.CoreUi
+)
+
+withProjects(
+	Modules.Feature.Launch
 )
 
 dependencies {
@@ -61,9 +64,11 @@ dependencies {
 	androidTestImplementation("androidx.test.ext:junit:1.1.5")
 	androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+	//di
 	implementation(Dependencies.dagger)
 	ksp(Dependencies.daggerCompiler)
 
-	implementation(Dependencies.Kotlin.coroutines)
+	//ui
 	implementation(Dependencies.viewBindingDelegate)
+	implementation(Dependencies.Navigation.cicerone)
 }

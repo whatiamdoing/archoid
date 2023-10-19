@@ -1,6 +1,6 @@
-package com.archoid.navigation.di.module
+package com.archoid.app.di.navigation.module
 
-import com.archoid.navigation.di.NavigationScope
+import com.archoid.app.di.AppScope
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 import dagger.Module
@@ -9,15 +9,15 @@ import dagger.Provides
 @Module
 internal class NavigationModule {
 
-	@NavigationScope
+	@AppScope
 	@Provides
 	fun cicerone() = Cicerone.create()
 
-	@NavigationScope
+	@AppScope
 	@Provides
 	fun router(cicerone: Cicerone<Router>) = cicerone.router
 
-	@NavigationScope
+	@AppScope
 	@Provides
 	fun navigationHolder(cicerone: Cicerone<Router>) = cicerone.getNavigatorHolder()
 

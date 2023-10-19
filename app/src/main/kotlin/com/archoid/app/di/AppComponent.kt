@@ -1,31 +1,30 @@
 package com.archoid.app.di
 
 import com.archoid.app.RootActivity
-import com.archoid.navigation.di.DaggerNavigationComponent
-import com.archoid.navigation.di.NavigationDependencies
+import com.archoid.app.di.navigation.module.NavigationBindsModule
+import com.archoid.app.di.navigation.module.NavigationModule
 import dagger.Component
 
+@AppScope
 @Component(
-	dependencies = [NavigationDependencies::class]
+	modules = [
+		NavigationModule::class,
+		NavigationBindsModule::class
+	]
 )
-interface AppComponent: NavigationDependencies {
+interface AppComponent {
 	fun inject(activity: RootActivity)
 
 	@Component.Factory
 	interface Factory {
-		fun create(
-			navigationDependencies: NavigationDependencies
-		): AppComponent
+		fun create(): AppComponent
 	}
 
 	companion object {
 		fun start(): AppComponent {
-			val navigationDependencies = DaggerNavigationComponent.create()
 			return DaggerAppComponent
 				.factory()
-				.create(
-					navigationDependencies = navigationDependencies
-				)
+				.create()
 		}
 	}
 }

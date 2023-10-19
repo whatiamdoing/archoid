@@ -1,4 +1,4 @@
-package com.archoid.navigation
+package com.archoid.core_ui
 
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 

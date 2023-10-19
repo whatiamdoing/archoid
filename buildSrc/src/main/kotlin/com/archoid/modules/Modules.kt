@@ -5,8 +5,6 @@ import com.archoid.modules.base.Module
 
 object Modules {
 
-	object Navigation: Module(name = "navigation")
-
 	object CoreUi: Module(name = "core-ui")
 
 	object Data: Module(name = "data")

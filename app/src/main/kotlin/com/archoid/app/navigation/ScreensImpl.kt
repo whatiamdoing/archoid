@@ -1,7 +1,7 @@
-package com.archoid.navigation.impl
+package com.archoid.app.navigation
 
+import com.archoid.core_ui.Screens
 import com.archoid.launch.LaunchScreen
-import com.archoid.navigation.Screens
 import javax.inject.Inject
 
 internal class ScreensImpl @Inject constructor(): Screens {

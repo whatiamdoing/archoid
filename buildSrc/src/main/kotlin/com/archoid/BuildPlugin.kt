@@ -96,5 +96,6 @@ private fun Project.addFeatureDependencies() {
 	dependencies {
 		implementation(Dependencies.AndroidX.fragment)
 		implementation(Dependencies.viewBindingDelegate)
+		implementation(Dependencies.Navigation.cicerone)
 	}
 }

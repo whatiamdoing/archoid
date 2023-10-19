@@ -1,5 +1,4 @@
-import com.archoid.modules.Modules
-import com.archoid.utils.withApiProject
+import com.archoid.dependencies.Dependencies
 
 plugins {
 	`android-library`
@@ -12,6 +11,6 @@ android {
 	namespace = "com.archoid.core_ui"
 }
 
-withApiProject(
-	Modules.Navigation
-)
+dependencies {
+	implementation(Dependencies.Navigation.cicerone)
+}

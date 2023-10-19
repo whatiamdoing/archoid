@@ -1,13 +1,10 @@
 package com.archoid.app
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.archoid.app.databinding.ActivityRootBinding
-import com.archoid.app.di.DaggerAppComponent
-import com.archoid.navigation.Screens
-import com.github.terrakok.cicerone.BackTo
-import com.github.terrakok.cicerone.Forward
+import com.archoid.core_ui.Screens
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Replace
 import com.github.terrakok.cicerone.androidx.AppNavigator
