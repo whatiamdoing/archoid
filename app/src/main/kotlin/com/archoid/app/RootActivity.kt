@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.archoid.app.databinding.ActivityRootBinding
 import com.archoid.core_ui.Screens
+import com.archoid.core_ui.di.dependencies.ChildComponentDependenciesHolder
+import com.archoid.core_ui.di.dependencies.HasChildDependencies
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Replace
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import javax.inject.Inject
 
-class RootActivity : AppCompatActivity() {
+class RootActivity : AppCompatActivity(), HasChildDependencies {
 
 	init {
 		App.appComponent.inject(this)
@@ -21,6 +23,9 @@ class RootActivity : AppCompatActivity() {
 
 	@Inject
 	lateinit var screens: Screens
+
+	@Inject
+	override lateinit var dependencies: ChildComponentDependenciesHolder
 
 	private val navigator = AppNavigator(this, R.id.container)
 

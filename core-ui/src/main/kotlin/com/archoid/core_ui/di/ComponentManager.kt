@@ -1,4 +1,4 @@
-package com.archoid.core_ui.di.utils
+package com.archoid.core_ui.di
 
 interface DaggerComponent
 

@@ -3,11 +3,10 @@ package com.archoid.core_ui.fragment
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.archoid.core_ui.di.utils.ComponentManager
-import com.archoid.core_ui.di.utils.DaggerComponent
+import com.archoid.core_ui.di.ComponentManager
+import com.archoid.core_ui.di.DaggerComponent
 import com.archoid.global.utils.extensions.orFalse
 import com.archoid.global.utils.objectScopeName
-import com.archoid.global.utils.safeCast
 
 abstract class BaseFragment(@LayoutRes layoutRes: Int) : Fragment(layoutRes) {
 
@@ -54,7 +53,7 @@ abstract class BaseFragment(@LayoutRes layoutRes: Int) : Fragment(layoutRes) {
 
 	private fun isRealRemoving(): Boolean =
 		(isRemoving && !instanceStateSaved) ||
-				parentFragment?.safeCast<Fragment, BaseFragment>()?.isRealRemoving().orFalse()
+				(parentFragment as? BaseFragment)?.isRealRemoving().orFalse()
 
 	private companion object {
 		const val KEY_SCOPE_NAME = "SCOPE_NAME"

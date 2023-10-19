@@ -1,6 +1,8 @@
 package com.archoid.app.di
 
 import com.archoid.app.RootActivity
+import com.archoid.app.di.dependencies.FlowsDependencies
+import com.archoid.app.di.dependencies.FlowsDependenciesModule
 import com.archoid.app.di.navigation.module.NavigationBindsModule
 import com.archoid.app.di.navigation.module.NavigationModule
 import dagger.Component
@@ -9,10 +11,11 @@ import dagger.Component
 @Component(
 	modules = [
 		NavigationModule::class,
-		NavigationBindsModule::class
+		NavigationBindsModule::class,
+		FlowsDependenciesModule::class
 	]
 )
-interface AppComponent {
+interface AppComponent: FlowsDependencies {
 	fun inject(activity: RootActivity)
 
 	@Component.Factory

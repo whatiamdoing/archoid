@@ -67,6 +67,7 @@ private fun Project.addAndroidLibraryExtensionConfig() = libraryExtension.apply 
 }
 
 private val modulesRequiringDI = listOf(
+	"core-ui",
 	"data",
 	"data-api-local",
 	"data-api-remote",
@@ -90,7 +91,8 @@ private fun Project.addDIDependencies() {
 
 private fun Project.addFeatureDependencies() {
 	withProjects(
-		Modules.CoreUi
+		Modules.CoreUi,
+		Modules.Global
 	)
 
 	dependencies {
