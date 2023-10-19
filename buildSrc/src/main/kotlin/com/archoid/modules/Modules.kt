@@ -5,19 +5,21 @@ import com.archoid.modules.base.Module
 
 object Modules {
 
-	object CoreUi: Module(name = "core-ui")
+	object CoreUi : Module(name = "core-ui")
 
-	object Data: Module(name = "data")
+	object Global : Module(name = "global")
 
-	object DataApiLocal: Module(name = "data-api-local")
+	object Data : Module(name = "data")
 
-	object DataApiRemote: Module(name = "data-api-remote")
+	object DataApiLocal : Module(name = "data-api-local")
 
-	object Domain: Module(name = "domain")
+	object DataApiRemote : Module(name = "data-api-remote")
 
-	object Feature: Group(name = "feature") {
+	object Domain : Module(name = "domain")
 
-		object Launch: Module(
+	object Feature : Group(name = "feature") {
+
+		object Launch : Module(
 			group = this,
 			name = "launch"
 		)
