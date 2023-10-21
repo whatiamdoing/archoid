@@ -55,8 +55,3 @@ internal interface ChildDependenciesModule {
 	fun registerDependencies(component: AuthComponent): ComponentDependencies
 
 }
-
-@Module
-internal object AuthFlowModule {
-
-}

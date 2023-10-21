@@ -8,9 +8,7 @@ internal class AuthRouter @Inject constructor(
 	private val flowRouter: FlowRouter
 ) {
 
-	fun toRegister() {
-		flowRouter.navigateTo(RegisterScreen)
-	}
+	fun toRegister() = flowRouter.navigateTo(RegisterScreen)
 
 	fun back() = flowRouter.exit()
 
