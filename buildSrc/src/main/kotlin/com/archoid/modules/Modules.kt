@@ -24,6 +24,8 @@ object Modules {
 			name = "launch"
 		)
 
+		object Auth: Module(group = this, name = "auth")
+
 	}
 
 }

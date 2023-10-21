@@ -6,5 +6,5 @@ plugins {
 apply<com.archoid.BuildPlugin>()
 
 android {
-	namespace = "com.archoid.launch"
+	namespace = "com.archoid.auth"
 }

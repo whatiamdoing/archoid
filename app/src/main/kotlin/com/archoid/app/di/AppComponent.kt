@@ -1,10 +1,10 @@
 package com.archoid.app.di
 
 import com.archoid.app.RootActivity
-import com.archoid.app.di.dependencies.FlowsDependencies
-import com.archoid.app.di.dependencies.FlowsDependenciesModule
-import com.archoid.app.di.navigation.module.NavigationBindsModule
-import com.archoid.app.di.navigation.module.NavigationModule
+import com.archoid.app.di.module.dependencies.FlowsDependencies
+import com.archoid.app.di.module.dependencies.FlowsDependenciesModule
+import com.archoid.app.di.module.navigation.NavigationBindsModule
+import com.archoid.app.di.module.navigation.NavigationModule
 import dagger.Component
 
 @AppScope

@@ -1,7 +1,25 @@
 package com.archoid.core_ui.di.utils
 
-@Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
+import javax.inject.Scope
+
+@Scope
+@Target(
+	AnnotationTarget.CLASS,
+	AnnotationTarget.FUNCTION
+)
 annotation class PerFeature
 
-@Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
+@Scope
+@Target(
+	AnnotationTarget.CLASS,
+	AnnotationTarget.FUNCTION
+)
 annotation class PerFragment
+
+@Scope
+@Target(
+	AnnotationTarget.CLASS,
+	AnnotationTarget.FUNCTION
+)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class PerFlow
