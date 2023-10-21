@@ -1,4 +1,4 @@
-package com.archoid.app.di.navigation.module
+package com.archoid.app.di.module.navigation
 
 import com.archoid.app.di.AppScope
 import com.github.terrakok.cicerone.Cicerone
@@ -15,10 +15,10 @@ internal class NavigationModule {
 
 	@AppScope
 	@Provides
-	fun router(cicerone: Cicerone<Router>) = cicerone.router
+	fun navigationHolder(cicerone: Cicerone<Router>) = cicerone.getNavigatorHolder()
 
 	@AppScope
 	@Provides
-	fun navigationHolder(cicerone: Cicerone<Router>) = cicerone.getNavigatorHolder()
+	fun router(cicerone: Cicerone<Router>) = cicerone.router
 
 }

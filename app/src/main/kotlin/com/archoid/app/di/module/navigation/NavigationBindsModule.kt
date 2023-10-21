@@ -1,4 +1,4 @@
-package com.archoid.app.di.navigation.module
+package com.archoid.app.di.module.navigation
 
 import com.archoid.app.di.AppScope
 import com.archoid.app.navigation.ScreensImpl

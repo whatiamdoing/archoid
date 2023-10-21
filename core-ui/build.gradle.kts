@@ -20,4 +20,5 @@ withProjects(
 dependencies {
 	implementation(Dependencies.AndroidX.fragment)
 	implementation(Dependencies.Navigation.cicerone)
+	implementation(Dependencies.material)
 }

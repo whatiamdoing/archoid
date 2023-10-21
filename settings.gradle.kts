@@ -20,6 +20,7 @@ include(":app")
 include(":core-ui")
 
 include(":feature:launch")
+include(":feature:auth")
 
 include(":domain")
 

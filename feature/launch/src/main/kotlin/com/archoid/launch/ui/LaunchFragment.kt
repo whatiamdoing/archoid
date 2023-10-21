@@ -1,6 +1,10 @@
 package com.archoid.launch.ui
 
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.archoid.core_ui.Screens
 import com.archoid.core_ui.di.dependencies.findComponentDependencies
 import com.archoid.core_ui.fragment.BaseFragment
 import com.archoid.launch.R
@@ -25,10 +29,31 @@ class LaunchFragment : BaseFragment(R.layout.fragment_launch) {
 	@Inject
 	lateinit var router: Router
 
-	private val viewBinding by viewBinding(FragmentLaunchBinding::bind)
+	@Inject
+	lateinit var screens: Screens
 
 	override fun initComponent() {
 		getComponent<LaunchComponent>().inject(this)
+	}
+
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		navigateNext()
+	}
+
+	private fun navigateNext() {
+		Handler(Looper.getMainLooper()).postDelayed(
+			{
+				router.replaceScreen(
+					screens.auth()
+				)
+			},
+			DELAY_LAUNCH_SCREEN
+		)
+	}
+
+	private companion object {
+		const val DELAY_LAUNCH_SCREEN = 1000L
 	}
 
 }

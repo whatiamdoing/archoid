@@ -1,6 +1,7 @@
 package com.archoid.core_ui.fragment
 
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.archoid.core_ui.di.ComponentManager
@@ -8,7 +9,9 @@ import com.archoid.core_ui.di.DaggerComponent
 import com.archoid.global.utils.extensions.orFalse
 import com.archoid.global.utils.objectScopeName
 
-abstract class BaseFragment(@LayoutRes layoutRes: Int) : Fragment(layoutRes) {
+abstract class BaseFragment(
+	@LayoutRes private val layoutRes: Int
+) : Fragment(layoutRes) {
 
 	protected lateinit var componentBuilder: () -> DaggerComponent
 
@@ -20,6 +23,13 @@ abstract class BaseFragment(@LayoutRes layoutRes: Int) : Fragment(layoutRes) {
 		fragmentScopeName = savedInstanceState?.getString(KEY_SCOPE_NAME) ?: objectScopeName()
 		initComponent()
 	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		setOnClickListeners()
+	}
+
+	open fun setOnClickListeners() {}
 
 	abstract fun initComponent()
 
