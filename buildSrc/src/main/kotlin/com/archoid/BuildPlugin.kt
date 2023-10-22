@@ -92,7 +92,8 @@ private fun Project.addDIDependencies() {
 private fun Project.addFeatureDependencies() {
 	withProjects(
 		Modules.CoreUi,
-		Modules.Global
+		Modules.Global,
+		Modules.Resources
 	)
 
 	dependencies {

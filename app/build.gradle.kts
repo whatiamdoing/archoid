@@ -48,7 +48,8 @@ android {
 withProjects(
 	Modules.Domain,
 	Modules.Data,
-	Modules.CoreUi
+	Modules.CoreUi,
+	Modules.Resources
 )
 
 withProjects(

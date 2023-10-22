@@ -29,3 +29,4 @@ include(":data-api-remote")
 include(":data-api-local")
 
 include(":global")
+include(":resources")

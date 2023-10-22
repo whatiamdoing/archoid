@@ -9,6 +9,8 @@ object Modules {
 
 	object Global : Module(name = "global")
 
+	object Resources : Module(name = "resources")
+
 	object Data : Module(name = "data")
 
 	object DataApiLocal : Module(name = "data-api-local")
@@ -24,7 +26,7 @@ object Modules {
 			name = "launch"
 		)
 
-		object Auth: Module(group = this, name = "auth")
+		object Auth : Module(group = this, name = "auth")
 
 	}
 
