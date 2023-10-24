@@ -14,12 +14,5 @@ annotation class PerFeature
 	AnnotationTarget.CLASS,
 	AnnotationTarget.FUNCTION
 )
-annotation class PerFragment
-
-@Scope
-@Target(
-	AnnotationTarget.CLASS,
-	AnnotationTarget.FUNCTION
-)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class PerFlow

@@ -5,6 +5,7 @@ import com.archoid.app.di.module.dependencies.FlowsDependencies
 import com.archoid.app.di.module.dependencies.FlowsDependenciesModule
 import com.archoid.app.di.module.navigation.NavigationBindsModule
 import com.archoid.app.di.module.navigation.NavigationModule
+import com.github.terrakok.cicerone.Router
 import dagger.Component
 
 @AppScope
