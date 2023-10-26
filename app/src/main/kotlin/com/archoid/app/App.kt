@@ -10,7 +10,7 @@ class App: Application() {
 		appComponent = AppComponent.start()
 	}
 
-	companion object{
+	companion object {
 		lateinit var appComponent: AppComponent
 	}
 
