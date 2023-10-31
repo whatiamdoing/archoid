@@ -7,6 +7,7 @@ import com.archoid.modules.Modules
 import com.archoid.utils.implementation
 import com.archoid.utils.ksp
 import com.archoid.utils.libraryExtension
+import com.archoid.utils.withLibs
 import com.archoid.utils.withProjects
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
@@ -97,9 +98,10 @@ private fun Project.addFeatureDependencies() {
 		Modules.Domain
 	)
 
-	dependencies {
-		implementation(Dependencies.AndroidX.fragment)
-		implementation(Dependencies.viewBindingDelegate)
-		implementation(Dependencies.Navigation.cicerone)
-	}
+	withLibs(
+		Dependencies.AndroidX.fragment,
+		Dependencies.viewBindingDelegate,
+		Dependencies.Navigation.cicerone,
+		Dependencies.material
+	)
 }

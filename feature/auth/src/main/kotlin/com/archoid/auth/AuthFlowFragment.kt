@@ -1,6 +1,6 @@
 package com.archoid.auth
 
-import com.archoid.auth.login.ui.LoginScreen
+import com.archoid.auth.login.LoginScreen
 import com.archoid.core_ui.di.dependencies.findComponentDependencies
 import com.archoid.core_ui.fragment.FlowFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen

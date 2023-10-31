@@ -15,6 +15,7 @@ internal interface LoginDependencies: ComponentDependencies {
 
 @PerFeature
 @Component(
+	modules = [LoginModule::class],
 	dependencies = [LoginDependencies::class]
 )
 internal interface LoginComponent: DaggerComponent {

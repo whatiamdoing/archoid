@@ -1,8 +1,8 @@
 package com.archoid.launch.ui
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.archoid.core_ui.Screens
+import com.archoid.core_ui.viewmodel.BaseViewModel
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class LaunchViewModel @Inject constructor(
 	private val router: Router,
 	private val screens: Screens
-): ViewModel() {
+): BaseViewModel() {
 
 	fun navigateToNext() {
 		viewModelScope.launch {

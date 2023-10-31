@@ -7,7 +7,7 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-interface ViewModelModule {
+interface BaseViewModelModule {
 
 	@Binds
 	@PerFeature
