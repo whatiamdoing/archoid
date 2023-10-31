@@ -9,6 +9,16 @@ import org.gradle.kotlin.dsl.getByType
 internal val Project.libraryExtension: LibraryExtension
 	get() = extensions.getByType()
 
+fun Project.withLibs(
+	vararg libs: String
+) {
+	dependencies {
+		libs.forEach { dep ->
+			implementation(dep)
+		}
+	}
+}
+
 fun Project.withApiProject(vararg modules: Module) {
 	dependencies {
 		modules.forEach { module ->

@@ -1,5 +1,6 @@
 import com.archoid.dependencies.Dependencies
 import com.archoid.modules.Modules
+import com.archoid.utils.withLibs
 import com.archoid.utils.withProjects
 
 plugins {
@@ -17,8 +18,8 @@ withProjects(
 	Modules.Global
 )
 
-dependencies {
-	implementation(Dependencies.AndroidX.fragment)
-	implementation(Dependencies.Navigation.cicerone)
-	implementation(Dependencies.material)
-}
+withLibs(
+	Dependencies.AndroidX.fragment,
+	Dependencies.Navigation.cicerone,
+	Dependencies.material
+)

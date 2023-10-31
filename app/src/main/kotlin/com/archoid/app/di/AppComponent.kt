@@ -5,7 +5,8 @@ import com.archoid.app.di.module.dependencies.FlowsDependencies
 import com.archoid.app.di.module.dependencies.FlowsDependenciesModule
 import com.archoid.app.di.module.navigation.NavigationBindsModule
 import com.archoid.app.di.module.navigation.NavigationModule
-import com.github.terrakok.cicerone.Router
+import com.archoid.data.di.DaggerRepositoryComponent
+import com.archoid.data.di.RepositoriesDependencies
 import dagger.Component
 
 @AppScope
@@ -14,21 +15,30 @@ import dagger.Component
 		NavigationModule::class,
 		NavigationBindsModule::class,
 		FlowsDependenciesModule::class
-	]
+	],
+	dependencies = [RepositoriesDependencies::class]
 )
-interface AppComponent: FlowsDependencies {
+interface AppComponent :
+	FlowsDependencies,
+	RepositoriesDependencies
+{
 	fun inject(activity: RootActivity)
 
 	@Component.Factory
 	interface Factory {
-		fun create(): AppComponent
+		fun create(
+			repositoriesDependencies: RepositoriesDependencies
+		): AppComponent
 	}
 
 	companion object {
 		fun start(): AppComponent {
+			val repositoriesDependencies = DaggerRepositoryComponent.create()
 			return DaggerAppComponent
 				.factory()
-				.create()
+				.create(
+					repositoriesDependencies = repositoriesDependencies
+				)
 		}
 	}
 }

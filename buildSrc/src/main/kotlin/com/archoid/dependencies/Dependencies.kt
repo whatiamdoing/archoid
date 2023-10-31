@@ -7,6 +7,7 @@ internal object Versions {
 	const val fragment = "1.6.1"
 	const val viewBindingDelegate = "1.5.9"
 	const val material = "1.10.0"
+	const val gson = "2.10.1"
 
 	const val gradle = "8.1.1"
 	const val kotlin = "1.9.0"
@@ -16,6 +17,7 @@ object Dependencies {
 	const val dagger = "com.google.dagger:dagger:${Versions.dagger}"
 	const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
 	const val material = "com.google.android.material:material:${Versions.material}"
+	const val gson = "com.google.code.gson:gson:${Versions.gson}"
 
 	const val viewBindingDelegate = "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${Versions.viewBindingDelegate}"
 
