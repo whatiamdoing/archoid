@@ -49,7 +49,8 @@ withProjects(
 	Modules.Domain,
 	Modules.Data,
 	Modules.CoreUi,
-	Modules.Resources
+	Modules.Resources,
+	Modules.Global
 )
 
 withProjects(

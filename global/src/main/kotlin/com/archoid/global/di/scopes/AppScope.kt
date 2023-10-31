@@ -1,4 +1,4 @@
-package com.archoid.app.di
+package com.archoid.global.di.scopes
 
 import javax.inject.Scope
 
@@ -7,4 +7,4 @@ import javax.inject.Scope
 	AnnotationTarget.CLASS,
 	AnnotationTarget.FUNCTION
 )
-internal annotation class AppScope
+annotation class AppScope
