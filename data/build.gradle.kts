@@ -1,5 +1,7 @@
 import com.archoid.modules.Modules
 import com.archoid.utils.withProjects
+import com.archoid.dependencies.Dependencies
+import com.archoid.utils.withLibs
 
 plugins {
 	`android-library`
@@ -14,6 +16,13 @@ android {
 
 withProjects(
 	Modules.Domain,
+	Modules.Global,
 	Modules.DataApiLocal,
 	Modules.DataApiRemote
+)
+
+
+withLibs(
+	Dependencies.Kotlin.coroutines,
+	Dependencies.gson
 )
