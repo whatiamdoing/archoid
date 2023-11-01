@@ -5,6 +5,7 @@ internal object Versions {
 	const val kotlinCoroutines = "1.7.3"
 	const val cicerone = "7.1"
 	const val fragment = "1.6.1"
+	const val datastore = "1.0.0"
 	const val viewBindingDelegate = "1.5.9"
 	const val material = "1.10.0"
 	const val gson = "2.10.1"
@@ -29,6 +30,7 @@ object Dependencies {
 
 	object AndroidX {
 		const val fragment = "androidx.fragment:fragment-ktx:${Versions.fragment}"
+		const val datastore = "androidx.datastore:datastore-preferences:${Versions.datastore}"
 	}
 
 	object Kotlin {

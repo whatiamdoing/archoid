@@ -1,3 +1,8 @@
+import com.archoid.utils.withLibs
+import com.archoid.dependencies.Dependencies
+import com.archoid.modules.Modules
+import com.archoid.utils.withProjects
+
 plugins {
 	`android-library`
 	`kotlin-android`
@@ -9,5 +14,11 @@ android {
 	namespace = "com.archoid.data_api_local"
 }
 
-dependencies {
-}
+withProjects(
+	Modules.Global
+)
+
+withLibs(
+	Dependencies.gson,
+	Dependencies.AndroidX.datastore
+)

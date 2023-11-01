@@ -1,0 +1,3 @@
+package archoid.data_api_local.ds
+
+interface AccountLocalDataSource

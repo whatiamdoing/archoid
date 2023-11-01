@@ -1,5 +1,6 @@
 import com.archoid.dependencies.Dependencies
 import com.archoid.modules.Modules
+import com.archoid.utils.withLibs
 import com.archoid.utils.withProjects
 
 plugins {
@@ -55,7 +56,11 @@ withProjects(
 
 withProjects(
 	Modules.Feature.Launch,
-	Modules.Feature.Auth,
+	Modules.Feature.Auth
+)
+
+withLibs(
+	Dependencies.gson
 )
 
 dependencies {
