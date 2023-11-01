@@ -4,19 +4,18 @@ import archoid.data_api_local.di.LocalDataComponent
 import archoid.data_api_local.di.LocalDataSourcesDependencies
 import com.archoid.global.di.scopes.AppScope
 import com.google.gson.Gson
-import dagger.BindsInstance
 import dagger.Component
 
 @AppScope
 @Component(
-	modules = [RepositoryModule::class]
+	modules = [RepositoryModule::class],
+	dependencies = [LocalDataSourcesDependencies::class]
 )
 interface RepositoryComponent: RepositoriesDependencies {
 
 	@Component.Factory
 	interface Factory {
 		fun create(
-			@BindsInstance
 			localDataDependencies: LocalDataSourcesDependencies
 		): RepositoryComponent
 	}
