@@ -48,6 +48,9 @@ internal class LoginFragment: MvvmFragment<LoginViewModel>(layoutRes = R.layout.
 		viewModel.isLoginDataValidFlow.observe { isValid ->
 			viewBinding.btnLogin.isEnabled = isValid
 		}
+		viewModel.isLoginInProgress.observe { isLoading ->
+			viewBinding.btnLogin.isLoading = isLoading
+		}
 	}
 
 	private fun setTextWatchers() {
@@ -67,8 +70,7 @@ internal class LoginFragment: MvvmFragment<LoginViewModel>(layoutRes = R.layout.
 				authRouter.toRegister()
 			}
 			btnLogin.setOnClickListener {
-				//TODO handle on login click
-				showSnackbar(text = "Login")
+				viewModel.login()
 			}
 		}
 	}

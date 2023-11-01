@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.archoid.core_ui.Constants
 import com.archoid.core_ui.viewmodel.BaseViewModel
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(): BaseViewModel() {
@@ -30,9 +32,20 @@ class LoginViewModel @Inject constructor(): BaseViewModel() {
 	private val _isLoginDataValidFlow = MutableStateFlow(false)
 	val isLoginDataValidFlow get() = _isLoginDataValidFlow.asStateFlow()
 
+	private val _isLoginInProgress = MutableStateFlow(false)
+	val isLoginInProgress get() = _isLoginInProgress.asStateFlow()
+
 	fun setEmail(value: String) = emailFlow.update { value }
 
 	fun setPassword(value: String) = passwordFlow.update { value }
+
+	fun login() {
+		viewModelScope.launch {
+			_isLoginInProgress.value = true
+			delay(1000)
+			_isLoginInProgress.value = false
+		}
+	}
 
 	@OptIn(FlowPreview::class)
 	private fun setLoginDataValidator() {
@@ -58,7 +71,9 @@ class LoginViewModel @Inject constructor(): BaseViewModel() {
 			isPasswordValid && isEmailValid
 		}.onEach {  valid ->
 			_isLoginDataValidFlow.value = valid
-		}.launchIn(viewModelScope)
+		}.launchIn(
+			scope = viewModelScope
+		)
 	}
 
 	init {
