@@ -5,9 +5,10 @@ import com.archoid.app.di.module.dependencies.FlowsDependencies
 import com.archoid.app.di.module.dependencies.FlowsDependenciesModule
 import com.archoid.app.di.module.navigation.NavigationBindsModule
 import com.archoid.app.di.module.navigation.NavigationModule
-import com.archoid.data.di.DaggerRepositoryComponent
 import com.archoid.data.di.RepositoriesDependencies
+import com.archoid.data.di.RepositoryComponent
 import com.archoid.global.di.scopes.AppScope
+import com.google.gson.Gson
 import dagger.Component
 
 @AppScope
@@ -34,7 +35,8 @@ interface AppComponent :
 
 	companion object {
 		fun start(): AppComponent {
-			val repositoriesDependencies = DaggerRepositoryComponent.create()
+			val gson = Gson()
+			val repositoriesDependencies = RepositoryComponent.start(gson = gson)
 			return DaggerAppComponent
 				.factory()
 				.create(
