@@ -21,5 +21,6 @@ withProjects(
 withLibs(
 	Dependencies.AndroidX.fragment,
 	Dependencies.Navigation.cicerone,
-	Dependencies.material
+	Dependencies.material,
+	Dependencies.viewBindingDelegate
 )

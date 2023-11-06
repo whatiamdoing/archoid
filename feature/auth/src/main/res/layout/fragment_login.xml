@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -24,6 +25,7 @@
 
             <Space
                 android:layout_weight="1"
+                android:minHeight="32dp"
                 android:layout_width="0dp"
                 android:layout_height="0dp"/>
 
@@ -59,10 +61,9 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.button.MaterialButton
+            <com.archoid.core_ui.widget.LoadingButton
                 android:id="@+id/btn_login"
                 android:text="@string/btn_login"
-                android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/padding_default"
                 android:layout_marginTop="32dp"
                 android:layout_width="match_parent"
@@ -71,13 +72,13 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_register"
                 android:text="@string/register_btn"
-                android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/padding_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <Space
                 android:layout_weight="1"
+                android:minHeight="32dp"
                 android:layout_width="0dp"
                 android:layout_height="0dp"/>
 

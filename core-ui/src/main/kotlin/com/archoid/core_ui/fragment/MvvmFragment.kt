@@ -50,7 +50,7 @@ abstract class MvvmFragment<ViewModel: BaseViewModel>(
 		this.flowWithLifecycle(
 			 lifecycle = lifecycle,
 			 minActiveState = Lifecycle.State.STARTED
-		 )
+		)
 			.onEach(action)
 		    .launchIn(lifecycleScope)
 
