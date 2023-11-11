@@ -1,7 +1,7 @@
-package com.archoid.auth.login.di
+package com.archoid.auth.child.login.di
 
 import com.archoid.auth.AuthRouter
-import com.archoid.auth.login.ui.LoginFragment
+import com.archoid.auth.child.login.ui.LoginFragment
 import com.archoid.core_ui.di.DaggerComponent
 import com.archoid.core_ui.di.dependencies.ComponentDependencies
 import com.archoid.core_ui.di.utils.PerFeature

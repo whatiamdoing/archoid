@@ -1,6 +1,8 @@
-package com.archoid.auth.login
+package com.archoid.auth.child.login
 
 import androidx.lifecycle.viewModelScope
+import com.archoid.auth.usecase.ValidateAuthPasswordUseCase
+import com.archoid.auth.usecase.ValidateEmailUseCase
 import com.archoid.core_ui.Constants
 import com.archoid.core_ui.viewmodel.BaseViewModel
 import kotlinx.coroutines.FlowPreview
@@ -17,17 +19,13 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class LoginViewModel @Inject constructor(): BaseViewModel() {
+class LoginViewModel @Inject constructor(
+	private val validateEmailUseCase: ValidateEmailUseCase,
+	private val validateAuthPasswordUseCase: ValidateAuthPasswordUseCase
+): BaseViewModel() {
 
 	private val emailFlow = MutableStateFlow<String?>(null)
 	private val passwordFlow = MutableStateFlow<String?>(null)
-
-	private val passwordRegex by lazy {
-		Regex(Constants.Regex.PASSWORD)
-	}
-	private val emailRegex by lazy {
-		Regex(Constants.Regex.EMAIL)
-	}
 
 	private val _isLoginDataValidFlow = MutableStateFlow(false)
 	val isLoginDataValidFlow get() = _isLoginDataValidFlow.asStateFlow()
@@ -66,8 +64,8 @@ class LoginViewModel @Inject constructor(): BaseViewModel() {
 			.debounce(Constants.Delays.TEXT_FIELD_CHANGE)
 
 		combine(preparedEmailFlow, preparedPasswordFlow) { email, password ->
-			val isPasswordValid = passwordRegex.matches(password)
-			val isEmailValid = emailRegex.matches(email)
+			val isPasswordValid = validateAuthPasswordUseCase.invoke(password)
+			val isEmailValid = validateEmailUseCase.invoke(email)
 			isPasswordValid && isEmailValid
 		}.onEach {  valid ->
 			_isLoginDataValidFlow.value = valid

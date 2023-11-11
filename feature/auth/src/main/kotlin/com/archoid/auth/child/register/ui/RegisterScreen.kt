@@ -1,4 +1,4 @@
-package com.archoid.auth.register.ui
+package com.archoid.auth.child.register.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory

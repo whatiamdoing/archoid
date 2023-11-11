@@ -13,6 +13,8 @@ internal object Versions {
 	const val inject = "1"
 	const val gradle = "8.1.1"
 	const val kotlin = "1.9.0"
+
+	const val junit5 = "5.7.2"
 }
 
 object Dependencies {
@@ -21,6 +23,7 @@ object Dependencies {
 	const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
 	const val material = "com.google.android.material:material:${Versions.material}"
 	const val gson = "com.google.code.gson:gson:${Versions.gson}"
+	const val junit = "org.junit.jupiter:junit-jupiter:${Versions.junit5}"
 
 	const val viewBindingDelegate = "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${Versions.viewBindingDelegate}"
 

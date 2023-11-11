@@ -12,6 +12,13 @@ apply<com.archoid.BuildPlugin>()
 
 android {
 	namespace = "com.archoid.core_ui"
+
+	@Suppress("UnstableApiUsage")
+	testOptions {
+		unitTests.all { test ->
+			test.useJUnitPlatform()
+		}
+	}
 }
 
 withProjects(
@@ -24,3 +31,7 @@ withLibs(
 	Dependencies.material,
 	Dependencies.viewBindingDelegate
 )
+
+dependencies {
+	testImplementation("org.junit.jupiter:junit-jupiter:5.7.2")
+}
