@@ -1,7 +1,7 @@
 package com.archoid.auth
 
-import com.archoid.auth.login.di.LoginDependencies
-import com.archoid.auth.register.di.RegisterDependencies
+import com.archoid.auth.child.login.di.LoginDependencies
+import com.archoid.auth.child.register.di.RegisterDependencies
 import com.archoid.core_ui.di.DaggerComponent
 import com.archoid.core_ui.di.dependencies.ComponentDependencies
 import com.archoid.core_ui.di.dependencies.ComponentDependencyKey

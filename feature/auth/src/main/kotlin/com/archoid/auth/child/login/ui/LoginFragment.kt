@@ -1,4 +1,4 @@
-package com.archoid.auth.login.ui
+package com.archoid.auth.child.login.ui
 
 import android.os.Bundle
 import android.view.View
@@ -7,9 +7,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.archoid.auth.AuthRouter
 import com.archoid.auth.R
 import com.archoid.auth.databinding.FragmentLoginBinding
-import com.archoid.auth.login.LoginViewModel
-import com.archoid.auth.login.di.DaggerLoginComponent
-import com.archoid.auth.login.di.LoginComponent
+import com.archoid.auth.child.login.LoginViewModel
+import com.archoid.auth.child.login.di.DaggerLoginComponent
+import com.archoid.auth.child.login.di.LoginComponent
 import com.archoid.core_ui.di.dependencies.findComponentDependencies
 import com.archoid.core_ui.fragment.MvvmFragment
 import javax.inject.Inject
@@ -66,11 +66,11 @@ internal class LoginFragment: MvvmFragment<LoginViewModel>(layoutRes = R.layout.
 
 	override fun setOnClickListeners() {
 		with(viewBinding) {
-			btnRegister.setOnClickListener {
-				authRouter.toRegister()
-			}
 			btnLogin.setOnClickListener {
 				viewModel.login()
+			}
+			btnToRegister.setOnClickListener {
+				authRouter.toRegister()
 			}
 		}
 	}

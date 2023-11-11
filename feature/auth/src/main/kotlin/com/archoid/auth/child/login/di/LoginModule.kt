@@ -1,7 +1,7 @@
-package com.archoid.auth.login.di
+package com.archoid.auth.child.login.di
 
 import androidx.lifecycle.ViewModel
-import com.archoid.auth.login.LoginViewModel
+import com.archoid.auth.child.login.LoginViewModel
 import com.archoid.core_ui.di.modules.BaseViewModelModule
 import com.archoid.core_ui.di.utils.PerFeature
 import com.archoid.core_ui.viewmodel.utils.ViewModelKey
