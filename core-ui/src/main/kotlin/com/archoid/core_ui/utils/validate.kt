@@ -1,8 +1,8 @@
 package com.archoid.core_ui.utils
 
-sealed interface Validated<T, E> {
-	data class Valid<T, E>(val value: T): Validated<T, E>
-	data class Invalid<T, E>(val error: E): Validated<T, E>
+sealed interface Validated<out T, out E> {
+	data class Valid<T>(val value: T): Validated<T, Nothing>
+	data class Invalid<E>(val error: E): Validated<Nothing, E>
 }
 
 fun <T, E> validated(
@@ -15,22 +15,22 @@ fun <T, E> validated(
 	Validated.Invalid(error = error)
 }
 
-fun <T, E> validate(
-	vararg validations: Validated<T, E>
-): Validated<List<T>, List<E>> {
-	val invalid = validations.filterIsInstance<Validated.Invalid<T, E>>()
+fun <E> validate(
+	vararg validations: Validated<*, E>
+): Validated<List<*>, List<E>> {
+	val invalid = validations.filterIsInstance<Validated.Invalid<E>>()
 
 	if (invalid.isNotEmpty()) {
-		return Validated.Invalid(error = invalid.map(Validated.Invalid<T, E>::error))
+		return Validated.Invalid(error = invalid.map(Validated.Invalid<E>::error))
 	}
 
-	val valid = validations.filterIsInstance<Validated.Valid<T, E>>()
+	val valid = validations.filterIsInstance<Validated.Valid<*>>()
 
-	return Validated.Valid(value = valid.map(Validated.Valid<T, E>::value))
+	return Validated.Valid(value = valid.map(Validated.Valid<*>::value))
 }
 
-inline fun <R, E> Validated<R, E>.fold(
-	onSuccess: (R) -> Unit,
+inline fun <T, E> Validated<T, E>.fold(
+	onSuccess: (T) -> Unit,
 	onError: (E) -> Unit
 ) {
 	when(this) {
@@ -39,10 +39,18 @@ inline fun <R, E> Validated<R, E>.fold(
 	}
 }
 
-inline fun <R, E> Validated<R, E>.onFailure(
+inline fun <E> Validated<*, E>.onFailure(
 	block: (E) -> Unit
 ) {
 	if (this is Validated.Invalid) {
 		block.invoke(this.error)
+	}
+}
+
+inline fun <T> Validated<T, *>.onSuccess(
+	block: (T) -> Unit
+) {
+	if (this is Validated.Valid) {
+		block.invoke(this.value)
 	}
 }
