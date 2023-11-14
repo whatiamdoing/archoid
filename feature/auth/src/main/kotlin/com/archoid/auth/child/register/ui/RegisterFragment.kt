@@ -45,14 +45,16 @@ class RegisterFragment: MvvmFragment<RegisterViewModel>(layoutRes = R.layout.fra
 
 	private fun initObservers() = with(viewModel) {
 		with(viewBinding) {
-			passwordValidationState.observe { state ->
+			passwordValidationStateFlow.observe { state ->
 				pasValidIndicatorLength.setValidationState(valid = state.isPasswordLengthValid)
 				pasValidIndicatorLatinChars.setValidationState(valid = state.isLatinCharsExists)
 				pasValidIndicatorDigits.setValidationState(valid = state.isDigitExists)
 				pasValidIndicatorSpecialChar.setValidationState(valid = state.isSpecialCharExists)
 			}
-			isPasswordConfirmMatch.observe(confirmPasValidIndicatorMatch::setValidationState)
-			isRegisterAvailable.observe(btnRegister::setEnabled)
+			isPasswordConfirmMatchFlow.observe(confirmPasValidIndicatorMatch::setValidationState)
+			isRegisterAvailableFlow.observe(btnRegister::setEnabled)
+			isRegisterInProgressFlow.observe(btnRegister::isLoading::set)
+			newsFlow.observe(::processNews)
 		}
 	}
 
@@ -73,10 +75,19 @@ class RegisterFragment: MvvmFragment<RegisterViewModel>(layoutRes = R.layout.fra
 		}
 	}
 
+	private fun processNews(news: RegisterViewModel.News) {
+		when(news) {
+			RegisterViewModel.News.OnRegistered -> {
+				//TODO navigate to next screen
+				showSnackbar(text = "Successfully registered")
+			}
+		}
+	}
+
 	override fun setOnClickListeners() {
 		with(viewBinding) {
 			btnRegister.setOnClickListener {
-				//TODO
+				viewModel.register()
 			}
 			toolbar.setNavigationOnClickListener {
 				authRouter.back()

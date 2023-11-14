@@ -6,16 +6,19 @@ import com.archoid.auth.child.register.RegisterViewModel
 import com.archoid.auth.child.register.ui.RegisterFragment
 import com.archoid.core_ui.di.DaggerComponent
 import com.archoid.core_ui.di.dependencies.ComponentDependencies
+import com.archoid.core_ui.di.dependencies.DispatchersDependencies
 import com.archoid.core_ui.di.modules.BaseViewModelModule
 import com.archoid.core_ui.di.utils.PerFeature
 import com.archoid.core_ui.viewmodel.utils.ViewModelKey
+import com.archoid.domain.repository.AccountRepository
 import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.multibindings.IntoMap
 
-internal interface RegisterDependencies: ComponentDependencies {
+internal interface RegisterDependencies: ComponentDependencies, DispatchersDependencies {
 	fun authRouter(): AuthRouter
+	fun accountRepository(): AccountRepository
 }
 
 @PerFeature

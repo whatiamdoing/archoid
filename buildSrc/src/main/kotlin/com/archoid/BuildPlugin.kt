@@ -20,7 +20,7 @@ open class BuildPlugin : Plugin<Project> {
 	override fun apply(project: Project) {
 		project.addAndroidLibraryExtensionConfig()
 
-		if (project.isRequireDI) {
+		if (project.isNeedDI) {
 			project.addDIDependencies()
 		}
 
@@ -67,18 +67,22 @@ private fun Project.addAndroidLibraryExtensionConfig() = libraryExtension.apply 
 	}
 }
 
-private val modulesRequiringDI = listOf(
+/**
+ * Contains name of modules, using DI.
+ */
+private val modulesUsingDI = setOf(
 	"core-ui",
 	"data",
 	"data-api-local",
 	"data-api-remote",
-	"navigation"
+	"navigation",
+	"global"
 )
 
-internal val Project.isRequireDI: Boolean
-	get() = modulesRequiringDI.contains(name) || isFeature
+private val Project.isNeedDI: Boolean
+	get() = modulesUsingDI.contains(name) || isFeature
 
-internal val Project.isFeature: Boolean
+private val Project.isFeature: Boolean
 	get() = displayName.contains("feature")
 
 private fun Project.addDIDependencies() {

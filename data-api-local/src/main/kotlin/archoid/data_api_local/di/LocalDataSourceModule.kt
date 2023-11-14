@@ -2,7 +2,7 @@ package archoid.data_api_local.di
 
 import archoid.data_api_local.ds.AccountLocalDataSource
 import archoid.data_api_local.ds.impl.AccountLocalDataSourceImpl
-import com.archoid.global.di.scopes.AppScope
+import com.archoid.global.di.scope.AppScope
 import dagger.Binds
 import dagger.Module
 

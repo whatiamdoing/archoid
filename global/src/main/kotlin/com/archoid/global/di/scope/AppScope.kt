@@ -1,4 +1,4 @@
-package com.archoid.global.di.scopes
+package com.archoid.global.di.scope
 
 import javax.inject.Scope
 
