@@ -3,12 +3,13 @@ package com.archoid.launch.di
 import com.archoid.core_ui.Screens
 import com.archoid.core_ui.di.DaggerComponent
 import com.archoid.core_ui.di.dependencies.ComponentDependencies
+import com.archoid.core_ui.di.dependencies.DispatchersDependencies
 import com.archoid.core_ui.di.utils.PerFeature
 import com.archoid.launch.ui.LaunchFragment
 import com.github.terrakok.cicerone.Router
 import dagger.Component
 
-interface LaunchDependencies: ComponentDependencies {
+interface LaunchDependencies: ComponentDependencies, DispatchersDependencies {
 	fun router(): Router
 	fun screens(): Screens
 }

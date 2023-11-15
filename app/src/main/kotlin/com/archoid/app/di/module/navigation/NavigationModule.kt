@@ -1,6 +1,6 @@
 package com.archoid.app.di.module.navigation
 
-import com.archoid.global.di.scopes.AppScope
+import com.archoid.global.di.scope.AppScope
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 import dagger.Module

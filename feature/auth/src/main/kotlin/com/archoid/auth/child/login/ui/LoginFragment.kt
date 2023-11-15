@@ -45,11 +45,11 @@ internal class LoginFragment: MvvmFragment<LoginViewModel>(layoutRes = R.layout.
 	}
 
 	private fun initObservers() {
-		viewModel.isLoginDataValidFlow.observe { isValid ->
-			viewBinding.btnLogin.isEnabled = isValid
-		}
-		viewModel.isLoginInProgress.observe { isLoading ->
-			viewBinding.btnLogin.isLoading = isLoading
+		with(viewBinding) {
+			viewModel.isLoginDataValidFlow.observe { isValid ->
+				btnLogin.isEnabled = isValid
+			}
+			viewModel.isLoginInProgressFlow.observe(btnLogin::isLoading::set)
 		}
 	}
 

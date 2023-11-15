@@ -31,7 +31,7 @@ class LoginViewModel @Inject constructor(
 	val isLoginDataValidFlow get() = _isLoginDataValidFlow.asStateFlow()
 
 	private val _isLoginInProgress = MutableStateFlow(false)
-	val isLoginInProgress get() = _isLoginInProgress.asStateFlow()
+	val isLoginInProgressFlow get() = _isLoginInProgress.asStateFlow()
 
 	fun setEmail(value: String) = emailFlow.update { value }
 

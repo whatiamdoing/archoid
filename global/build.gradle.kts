@@ -13,5 +13,5 @@ android {
 }
 
 withLibs(
-	Dependencies.inject
+	Dependencies.Kotlin.coroutines
 )

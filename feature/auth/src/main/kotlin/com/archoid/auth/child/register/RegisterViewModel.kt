@@ -9,23 +9,27 @@ import com.archoid.core_ui.utils.onFailure
 import com.archoid.core_ui.utils.validate
 import com.archoid.core_ui.utils.validated
 import com.archoid.core_ui.viewmodel.BaseViewModel
+import com.archoid.domain.entity.params.RegisterParamsEntity
+import com.archoid.domain.repository.AccountRepository
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 class RegisterViewModel @Inject constructor(
-	private val validateEmailUseCase: ValidateEmailUseCase
+	private val validateEmailUseCase: ValidateEmailUseCase,
+	private val accountRepository: AccountRepository
 ): BaseViewModel() {
 
 	private var name: String? = null
@@ -35,10 +39,10 @@ class RegisterViewModel @Inject constructor(
 
 	private val _passwordFlow = MutableStateFlow<String?>(null)
 	private val _passwordValidationStateFlow = MutableStateFlow(PasswordValidationState.empty())
-	val passwordValidationState get() = _passwordValidationStateFlow.asStateFlow()
+	val passwordValidationStateFlow get() = _passwordValidationStateFlow.asStateFlow()
 
 	private val _passwordConfirmFlow = MutableStateFlow<String?>(null)
-	val isPasswordConfirmMatch = combine(_passwordFlow, _passwordConfirmFlow) { password, passwordConfirm ->
+	val isPasswordConfirmMatchFlow = combine(_passwordFlow, _passwordConfirmFlow) { password, passwordConfirm ->
 		!password.isNullOrBlank() && password == passwordConfirm
 	}.stateIn(
 		scope = viewModelScope,
@@ -46,9 +50,15 @@ class RegisterViewModel @Inject constructor(
 		initialValue = false
 	)
 
-	val isRegisterAvailable = combine(isEmailValid, passwordValidationState, isPasswordConfirmMatch) { isEmailValid, validationState, passwordConfirmMatch ->
+	val isRegisterAvailableFlow = combine(isEmailValid, passwordValidationStateFlow, isPasswordConfirmMatchFlow) { isEmailValid, validationState, passwordConfirmMatch ->
 		isEmailValid && validationState.isFullValid() && passwordConfirmMatch
 	}
+
+	private val _isRegisterInProgressFlow = MutableStateFlow(false)
+	val isRegisterInProgressFlow get() = _isRegisterInProgressFlow.asStateFlow()
+
+	private val _newsFlow = MutableSharedFlow<News>()
+	val newsFlow get() = _newsFlow.asSharedFlow()
 
 	fun setEmail(value: String) {
 		this.email = value
@@ -62,6 +72,32 @@ class RegisterViewModel @Inject constructor(
 	fun setPassword(value: String) = _passwordFlow.update { value }
 
 	fun setPasswordConfirm(value: String) = _passwordConfirmFlow.update { value }
+
+	fun register() {
+		io {
+			_isRegisterInProgressFlow.value = true
+
+			kotlin.runCatching {
+				val password = requireNotNull(_passwordFlow.value)
+				accountRepository.register(
+					params = RegisterParamsEntity(
+						name = name,
+						email = requireNotNull(email),
+						password = password
+					)
+				)
+			}.fold(
+				onSuccess = {
+					_newsFlow.emit(News.OnRegistered)
+				},
+				onFailure = { error ->
+					error.message?.let(::showMessage)
+				}
+			)
+
+			_isRegisterInProgressFlow.value = false
+		}
+	}
 
 	@OptIn(FlowPreview::class)
 	private fun startPasswordValidator() {
@@ -106,6 +142,10 @@ class RegisterViewModel @Inject constructor(
 				_passwordValidationStateFlow.value = validState
 			}
 			.launchIn(viewModelScope)
+	}
+
+	sealed interface News {
+		data object OnRegistered: News
 	}
 
 	init {

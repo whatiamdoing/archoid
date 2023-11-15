@@ -1,7 +1,7 @@
 package com.archoid.app.di.module.dependencies
 
 import com.archoid.app.di.AppComponent
-import com.archoid.global.di.scopes.AppScope
+import com.archoid.global.di.scope.AppScope
 import com.archoid.auth.AuthDependencies
 import com.archoid.core_ui.di.dependencies.ComponentDependencies
 import com.archoid.core_ui.di.dependencies.ComponentDependencyKey

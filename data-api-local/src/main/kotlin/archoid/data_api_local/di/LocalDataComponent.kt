@@ -1,6 +1,7 @@
 package archoid.data_api_local.di
 
-import com.archoid.global.di.scopes.AppScope
+import android.content.Context
+import com.archoid.global.di.scope.AppScope
 import com.google.gson.Gson
 import dagger.BindsInstance
 import dagger.Component
@@ -18,15 +19,21 @@ interface LocalDataComponent: LocalDataSourcesDependencies {
 	interface Factory {
 		fun create(
 			@BindsInstance
-			gson: Gson
+			gson: Gson,
+			@BindsInstance
+			context: Context
 		): LocalDataComponent
 	}
 
 	companion object {
-		fun start(gson: Gson) = DaggerLocalDataComponent
+		fun start(
+			gson: Gson,
+			context: Context
+		) = DaggerLocalDataComponent
 			.factory()
 			.create(
-				gson = gson
+				gson = gson,
+				context = context
 			)
 	}
 
