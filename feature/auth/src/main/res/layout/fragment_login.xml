@@ -8,7 +8,7 @@
 
     <Toolbar
         android:id="@+id/toolbar"
-        android:title="@string/login_title"
+        android:title="@string/auth_login_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -39,7 +39,7 @@
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_email"
+                    android:hint="@string/auth_hint_email"
                     android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -56,7 +56,7 @@
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_password"
+                    android:hint="@string/auth_hint_password"
                     android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -67,14 +67,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_default"
                 android:layout_marginTop="32dp"
-                android:text="@string/btn_login" />
+                android:text="@string/auth_btn_login" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_to_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_default"
-                android:text="@string/to_register_btn" />
+                android:text="@string/auth_to_register_btn" />
 
             <Space
                 android:layout_width="0dp"

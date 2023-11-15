@@ -21,6 +21,7 @@ include(":core-ui")
 
 include(":feature:launch")
 include(":feature:auth")
+include(":feature:main")
 
 include(":domain")
 

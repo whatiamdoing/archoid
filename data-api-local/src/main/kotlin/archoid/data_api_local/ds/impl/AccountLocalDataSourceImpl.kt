@@ -19,4 +19,7 @@ internal class AccountLocalDataSourceImpl @Inject constructor(
 	override suspend fun getProfile(): ProfileModel? =
 		appDataStore.getProfile()
 
+	override suspend fun clearProfile() =
+		appDataStore.clearProfile()
+
 }

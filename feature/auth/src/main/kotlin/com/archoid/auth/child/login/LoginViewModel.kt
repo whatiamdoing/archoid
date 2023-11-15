@@ -1,10 +1,14 @@
 package com.archoid.auth.child.login
 
 import androidx.lifecycle.viewModelScope
+import com.archoid.auth.AuthRouter
 import com.archoid.auth.usecase.ValidateAuthPasswordUseCase
 import com.archoid.auth.usecase.ValidateEmailUseCase
 import com.archoid.core_ui.Constants
+import com.archoid.core_ui.tools.ResourceManager
 import com.archoid.core_ui.viewmodel.BaseViewModel
+import com.archoid.domain.entity.params.LoginParamsEntity
+import com.archoid.domain.repository.AccountRepository
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,10 +22,14 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.archoid.resources.R
 
-class LoginViewModel @Inject constructor(
+internal class LoginViewModel @Inject constructor(
+	private val resourceManager: ResourceManager,
+	private val authRouter: AuthRouter,
 	private val validateEmailUseCase: ValidateEmailUseCase,
-	private val validateAuthPasswordUseCase: ValidateAuthPasswordUseCase
+	private val validateAuthPasswordUseCase: ValidateAuthPasswordUseCase,
+	private val accountRepository: AccountRepository
 ): BaseViewModel() {
 
 	private val emailFlow = MutableStateFlow<String?>(null)
@@ -38,9 +46,30 @@ class LoginViewModel @Inject constructor(
 	fun setPassword(value: String) = passwordFlow.update { value }
 
 	fun login() {
+		val email = emailFlow.value ?: return
+		val password = passwordFlow.value ?: return
+
 		viewModelScope.launch {
 			_isLoginInProgress.value = true
-			delay(1000)
+			kotlin.runCatching {
+				accountRepository.login(
+					params = LoginParamsEntity(
+						email = email,
+						password = password
+					)
+				)
+			}.fold(
+				onSuccess = {
+					showMessage(
+						msg = resourceManager.getString(R.string.auth_success)
+					)
+					delay(Constants.Delays.HALF_OF_SECOND)
+					authRouter.toMain()
+				},
+				onFailure = { error ->
+					error.message?.let(::showMessage)
+				}
+			)
 			_isLoginInProgress.value = false
 		}
 	}

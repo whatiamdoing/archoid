@@ -11,4 +11,6 @@ interface AccountLocalDataSource {
 
 	suspend fun getProfile(): ProfileModel?
 
+	suspend fun clearProfile()
+
 }

@@ -2,14 +2,15 @@ package com.archoid.auth.child.login.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.archoid.auth.AuthRouter
 import com.archoid.auth.R
-import com.archoid.auth.databinding.FragmentLoginBinding
 import com.archoid.auth.child.login.LoginViewModel
 import com.archoid.auth.child.login.di.DaggerLoginComponent
 import com.archoid.auth.child.login.di.LoginComponent
+import com.archoid.auth.databinding.FragmentLoginBinding
 import com.archoid.core_ui.di.dependencies.findComponentDependencies
 import com.archoid.core_ui.fragment.MvvmFragment
 import javax.inject.Inject
@@ -46,6 +47,7 @@ internal class LoginFragment: MvvmFragment<LoginViewModel>(layoutRes = R.layout.
 
 	private fun initObservers() {
 		with(viewBinding) {
+			viewBinding.etPassword.setTextColor(ContextCompat.getColor(requireContext(), com.archoid.resources.R.color.black))
 			viewModel.isLoginDataValidFlow.observe { isValid ->
 				btnLogin.isEnabled = isValid
 			}

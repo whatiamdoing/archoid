@@ -1,7 +1,9 @@
 package com.archoid.app.di
 
 import android.app.Application
+import android.content.Context
 import com.archoid.app.RootActivity
+import com.archoid.app.di.module.CommonsModule
 import com.archoid.app.di.module.dependencies.FlowsDependencies
 import com.archoid.app.di.module.dependencies.FlowsDependenciesModule
 import com.archoid.app.di.module.navigation.NavigationBindsModule
@@ -11,6 +13,7 @@ import com.archoid.data.di.RepositoryComponent
 import com.archoid.global.di.module.DispatchersModule
 import com.archoid.global.di.scope.AppScope
 import com.google.gson.Gson
+import dagger.BindsInstance
 import dagger.Component
 
 @AppScope
@@ -19,7 +22,8 @@ import dagger.Component
 		NavigationModule::class,
 		NavigationBindsModule::class,
 		FlowsDependenciesModule::class,
-		DispatchersModule::class
+		DispatchersModule::class,
+		CommonsModule::class
 	],
 	dependencies = [
 		RepositoriesDependencies::class
@@ -34,6 +38,8 @@ interface AppComponent :
 	@Component.Factory
 	interface Factory {
 		fun create(
+			@BindsInstance
+			context: Context,
 			repositoriesDependencies: RepositoriesDependencies
 		): AppComponent
 	}
@@ -48,6 +54,7 @@ interface AppComponent :
 			return DaggerAppComponent
 				.factory()
 				.create(
+					context = appContext,
 					repositoriesDependencies = repositoriesDependencies
 				)
 		}

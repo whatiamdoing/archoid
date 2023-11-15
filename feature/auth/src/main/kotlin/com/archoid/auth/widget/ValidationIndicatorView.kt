@@ -41,7 +41,7 @@ class ValidationIndicatorView @JvmOverloads constructor(
 		imageTintList = ColorStateList.valueOf(
 			ContextCompat.getColor(
 				context,
-				com.archoid.core_ui.R.color.success
+				com.archoid.resources.R.color.success
 			)
 		)
 	}
@@ -56,7 +56,7 @@ class ValidationIndicatorView @JvmOverloads constructor(
 		imageTintList = ColorStateList.valueOf(
 			ContextCompat.getColor(
 				context,
-				com.archoid.core_ui.R.color.failure
+				com.archoid.resources.R.color.failure
 			)
 		)
 	}

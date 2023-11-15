@@ -8,6 +8,7 @@ import com.archoid.core_ui.di.dependencies.ComponentDependencyKey
 import com.archoid.core_ui.di.dependencies.FlowComponentDependencies
 import com.archoid.core_ui.di.modules.FlowFragmentModule
 import com.archoid.core_ui.di.utils.PerFlow
+import com.archoid.core_ui.tools.ResourceManager
 import com.archoid.domain.repository.AccountRepository
 import dagger.Binds
 import dagger.Component
@@ -16,6 +17,7 @@ import dagger.multibindings.IntoMap
 
 interface AuthDependencies : FlowComponentDependencies {
 	fun accountRepository(): AccountRepository
+	fun resourceManager(): ResourceManager
 }
 
 @PerFlow

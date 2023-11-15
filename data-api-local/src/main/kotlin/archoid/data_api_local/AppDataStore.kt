@@ -11,4 +11,6 @@ interface AppDataStore {
 
 	suspend fun getProfile(): ProfileModel?
 
+	suspend fun clearProfile()
+
 }

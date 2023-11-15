@@ -28,6 +28,8 @@ object Modules {
 
 		object Auth : Module(group = this, name = "auth")
 
+		object Main : Module(group = this, name = "main")
+
 	}
 
 }
