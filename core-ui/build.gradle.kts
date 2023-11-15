@@ -1,5 +1,6 @@
 import com.archoid.dependencies.Dependencies
 import com.archoid.modules.Modules
+import com.archoid.utils.withApiProject
 import com.archoid.utils.withLibs
 import com.archoid.utils.withProjects
 
@@ -33,5 +34,5 @@ withLibs(
 )
 
 dependencies {
-	testImplementation("org.junit.jupiter:junit-jupiter:5.7.2")
+	testImplementation(Dependencies.junit)
 }

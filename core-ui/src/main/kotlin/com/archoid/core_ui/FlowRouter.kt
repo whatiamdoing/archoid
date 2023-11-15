@@ -13,4 +13,8 @@ class FlowRouter(private val router: Router): Router() {
 		router.navigateTo(screen)
 	}
 
+	fun replaceRoot(screen: FragmentScreen) {
+		router.replaceScreen(screen = screen)
+	}
+
 }

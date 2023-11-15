@@ -24,7 +24,7 @@ abstract class BaseViewModel: ViewModel() {
 	@Inject
 	protected lateinit var defaultDispatcher: CoroutineDispatcher
 
-	protected val _message = MutableSharedFlow<String>()
+	private val _message = MutableSharedFlow<String>()
 	val message get() = _message.asSharedFlow()
 
 	protected fun showMessage(msg: String) {

@@ -41,6 +41,12 @@ internal class AppDataStoreImpl @Inject constructor(
 			}
 			.firstOrNull()
 
+	override suspend fun clearProfile() {
+		context.appDataStore.edit { prefs ->
+			prefs.remove(keyProfile)
+		}
+	}
+
 	private companion object {
 		const val DATASTORE_NAME = "archoid"
 

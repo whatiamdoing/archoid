@@ -10,7 +10,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-interface LoginModule: BaseViewModelModule {
+internal interface LoginModule: BaseViewModelModule {
 
 	@Binds
 	@IntoMap

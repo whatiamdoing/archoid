@@ -56,7 +56,8 @@ withProjects(
 
 withProjects(
 	Modules.Feature.Launch,
-	Modules.Feature.Auth
+	Modules.Feature.Auth,
+	Modules.Feature.Main
 )
 
 withLibs(
