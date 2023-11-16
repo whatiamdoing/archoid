@@ -7,7 +7,6 @@ import androidx.core.widget.addTextChangedListener
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.archoid.auth.AuthRouter
 import com.archoid.auth.R
-import com.archoid.auth.child.login.LoginViewModel
 import com.archoid.auth.child.login.di.DaggerLoginComponent
 import com.archoid.auth.child.login.di.LoginComponent
 import com.archoid.auth.databinding.FragmentLoginBinding

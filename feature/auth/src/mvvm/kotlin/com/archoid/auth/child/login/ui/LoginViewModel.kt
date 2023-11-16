@@ -1,4 +1,4 @@
-package com.archoid.auth.child.login
+package com.archoid.auth.child.login.ui
 
 import androidx.lifecycle.viewModelScope
 import com.archoid.auth.AuthRouter
@@ -6,11 +6,11 @@ import com.archoid.auth.usecase.ValidateAuthPasswordUseCase
 import com.archoid.auth.usecase.ValidateEmailUseCase
 import com.archoid.core_ui.Constants
 import com.archoid.core_ui.tools.ResourceManager
+import com.archoid.core_ui.utils.delayedExecute
 import com.archoid.core_ui.viewmodel.BaseViewModel
 import com.archoid.domain.entity.params.LoginParamsEntity
 import com.archoid.domain.repository.AccountRepository
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
@@ -30,7 +30,7 @@ internal class LoginViewModel @Inject constructor(
 	private val validateEmailUseCase: ValidateEmailUseCase,
 	private val validateAuthPasswordUseCase: ValidateAuthPasswordUseCase,
 	private val accountRepository: AccountRepository
-): BaseViewModel() {
+) : BaseViewModel() {
 
 	private val emailFlow = MutableStateFlow<String?>(null)
 	private val passwordFlow = MutableStateFlow<String?>(null)
@@ -63,8 +63,9 @@ internal class LoginViewModel @Inject constructor(
 					showMessage(
 						msg = resourceManager.getString(R.string.auth_success)
 					)
-					delay(Constants.Delays.HALF_OF_SECOND)
-					authRouter.toMain()
+					delayedExecute {
+						authRouter.toMain()
+					}
 				},
 				onFailure = { error ->
 					error.message?.let(::showMessage)
@@ -96,7 +97,7 @@ internal class LoginViewModel @Inject constructor(
 			val isPasswordValid = validateAuthPasswordUseCase.invoke(password)
 			val isEmailValid = validateEmailUseCase.invoke(email)
 			isPasswordValid && isEmailValid
-		}.onEach {  valid ->
+		}.onEach { valid ->
 			_isLoginDataValidFlow.value = valid
 		}.launchIn(
 			scope = viewModelScope

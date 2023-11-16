@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.archoid.core_ui.viewmodel.BaseViewModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -36,14 +35,6 @@ abstract class MvvmFragment<ViewModel: BaseViewModel>(
 
 	private fun initBaseObservers() {
 		viewModel.message.observe(::showSnackbar)
-	}
-
-	protected open fun showSnackbar(
-		text: String
-	) {
-		view?.let {
-			Snackbar.make(it, text, Snackbar.LENGTH_SHORT).show()
-		}
 	}
 
 	protected fun <T> Flow<T>.observe(action: suspend (T) -> Unit) =

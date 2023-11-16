@@ -7,8 +7,7 @@ import com.archoid.modules.Modules
 import com.archoid.utils.implementation
 import com.archoid.utils.ksp
 import com.archoid.utils.libraryExtension
-import com.archoid.utils.withLibs
-import com.archoid.utils.withProjects
+import com.archoid.utils.*
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -56,6 +55,22 @@ private fun Project.addAndroidLibraryExtensionConfig() = libraryExtension.apply 
 		targetCompatibility = JavaVersion.VERSION_1_8
 	}
 
+	flavorDimensions.add("type")
+
+	productFlavors {
+		create("mvvm") {
+			dimension = "type"
+		}
+
+		create("mvp") {
+			dimension = "type"
+		}
+
+		create("elm") {
+			dimension = "type"
+		}
+	}
+
 	tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 		kotlinOptions {
 			jvmTarget = "1.8"
@@ -95,6 +110,7 @@ private fun Project.addDIDependencies() {
 }
 
 private fun Project.addFeatureDependencies() {
+
 	withProjects(
 		Modules.CoreUi,
 		Modules.Global,
@@ -108,4 +124,5 @@ private fun Project.addFeatureDependencies() {
 		Dependencies.Navigation.cicerone,
 		Dependencies.material
 	)
+
 }

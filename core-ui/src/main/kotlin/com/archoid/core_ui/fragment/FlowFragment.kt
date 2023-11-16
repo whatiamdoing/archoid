@@ -16,6 +16,7 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import javax.inject.Inject
 
+
 abstract class FlowFragment: BaseFragment(R.layout.fragment_flow), HasChildDependencies {
 
 	@Inject

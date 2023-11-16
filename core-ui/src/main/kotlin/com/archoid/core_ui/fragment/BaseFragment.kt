@@ -8,6 +8,8 @@ import com.archoid.core_ui.di.ComponentManager
 import com.archoid.core_ui.di.DaggerComponent
 import com.archoid.global.utils.extensions.orFalse
 import com.archoid.global.utils.objectScopeName
+import com.google.android.material.snackbar.Snackbar
+
 
 abstract class BaseFragment(
 	@LayoutRes private val layoutRes: Int
@@ -64,6 +66,14 @@ abstract class BaseFragment(
 	private fun isRealRemoving(): Boolean =
 		(isRemoving && !instanceStateSaved) ||
 				(parentFragment as? BaseFragment)?.isRealRemoving().orFalse()
+
+	protected open fun showSnackbar(
+		text: String
+	) {
+		view?.let {
+			Snackbar.make(it, text, Snackbar.LENGTH_SHORT).show()
+		}
+	}
 
 	private companion object {
 		const val KEY_SCOPE_NAME = "SCOPE_NAME"

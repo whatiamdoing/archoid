@@ -32,9 +32,26 @@ android {
 			)
 		}
 	}
+
 	compileOptions {
 		sourceCompatibility = JavaVersion.VERSION_1_8
 		targetCompatibility = JavaVersion.VERSION_1_8
+	}
+
+	flavorDimensions.add("type")
+
+	productFlavors {
+		create("mvvm") {
+			dimension = "type"
+		}
+
+		create("mvp") {
+			dimension = "type"
+		}
+
+		create("elm") {
+			dimension = "type"
+		}
 	}
 
 	kotlinOptions {

@@ -14,7 +14,7 @@ import com.archoid.core_ui.di.dependencies.findComponentDependencies
 import com.archoid.core_ui.fragment.MvvmFragment
 import javax.inject.Inject
 
-class RegisterFragment: MvvmFragment<RegisterViewModel>(layoutRes = R.layout.fragment_register) {
+internal class RegisterFragment: MvvmFragment<RegisterViewModel>(layoutRes = R.layout.fragment_register) {
 
 	init {
 		componentBuilder = {
@@ -54,7 +54,6 @@ class RegisterFragment: MvvmFragment<RegisterViewModel>(layoutRes = R.layout.fra
 			isPasswordConfirmMatchFlow.observe(confirmPasValidIndicatorMatch::setValidationState)
 			isRegisterAvailableFlow.observe(btnRegister::setEnabled)
 			isRegisterInProgressFlow.observe(btnRegister::isLoading::set)
-			newsFlow.observe(::processNews)
 		}
 	}
 
@@ -71,15 +70,6 @@ class RegisterFragment: MvvmFragment<RegisterViewModel>(layoutRes = R.layout.fra
 			}
 			etPasswordConfirm.addTextChangedListener { value ->
 				viewModel.setPasswordConfirm(value = value.toString())
-			}
-		}
-	}
-
-	private fun processNews(news: RegisterViewModel.News) {
-		when(news) {
-			RegisterViewModel.News.OnRegistered -> {
-				//TODO navigate to next screen
-				showSnackbar(text = "Successfully registered")
 			}
 		}
 	}

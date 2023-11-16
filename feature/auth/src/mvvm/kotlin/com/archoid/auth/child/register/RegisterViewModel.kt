@@ -2,20 +2,22 @@ package com.archoid.auth.child.register
 
 import androidx.lifecycle.viewModelScope
 import com.archoid.auth.AuthConstants
+import com.archoid.auth.AuthRouter
 import com.archoid.auth.child.register.PasswordValidationState.Companion.setValidationError
 import com.archoid.auth.usecase.ValidateEmailUseCase
 import com.archoid.core_ui.Constants
+import com.archoid.core_ui.tools.ResourceManager
+import com.archoid.core_ui.utils.delayedExecute
 import com.archoid.core_ui.utils.onFailure
 import com.archoid.core_ui.utils.validate
 import com.archoid.core_ui.utils.validated
 import com.archoid.core_ui.viewmodel.BaseViewModel
 import com.archoid.domain.entity.params.RegisterParamsEntity
 import com.archoid.domain.repository.AccountRepository
+import com.archoid.resources.R
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
@@ -27,10 +29,12 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
-class RegisterViewModel @Inject constructor(
+internal class RegisterViewModel @Inject constructor(
+	private val authRouter: AuthRouter,
+	private val resourceManager: ResourceManager,
 	private val validateEmailUseCase: ValidateEmailUseCase,
 	private val accountRepository: AccountRepository
-): BaseViewModel() {
+) : BaseViewModel() {
 
 	private var name: String? = null
 
@@ -42,23 +46,25 @@ class RegisterViewModel @Inject constructor(
 	val passwordValidationStateFlow get() = _passwordValidationStateFlow.asStateFlow()
 
 	private val _passwordConfirmFlow = MutableStateFlow<String?>(null)
-	val isPasswordConfirmMatchFlow = combine(_passwordFlow, _passwordConfirmFlow) { password, passwordConfirm ->
-		!password.isNullOrBlank() && password == passwordConfirm
-	}.stateIn(
-		scope = viewModelScope,
-		started = SharingStarted.Lazily,
-		initialValue = false
-	)
+	val isPasswordConfirmMatchFlow =
+		combine(_passwordFlow, _passwordConfirmFlow) { password, passwordConfirm ->
+			!password.isNullOrBlank() && password == passwordConfirm
+		}.stateIn(
+			scope = viewModelScope,
+			started = SharingStarted.Lazily,
+			initialValue = false
+		)
 
-	val isRegisterAvailableFlow = combine(isEmailValid, passwordValidationStateFlow, isPasswordConfirmMatchFlow) { isEmailValid, validationState, passwordConfirmMatch ->
+	val isRegisterAvailableFlow = combine(
+		isEmailValid,
+		passwordValidationStateFlow,
+		isPasswordConfirmMatchFlow
+	) { isEmailValid, validationState, passwordConfirmMatch ->
 		isEmailValid && validationState.isFullValid() && passwordConfirmMatch
 	}
 
 	private val _isRegisterInProgressFlow = MutableStateFlow(false)
 	val isRegisterInProgressFlow get() = _isRegisterInProgressFlow.asStateFlow()
-
-	private val _newsFlow = MutableSharedFlow<News>()
-	val newsFlow get() = _newsFlow.asSharedFlow()
 
 	fun setEmail(value: String) {
 		this.email = value
@@ -88,7 +94,14 @@ class RegisterViewModel @Inject constructor(
 				)
 			}.fold(
 				onSuccess = {
-					_newsFlow.emit(News.OnRegistered)
+					showMessage(
+						msg = resourceManager.getString(
+							R.string.auth_success
+						)
+					)
+					delayedExecute {
+						authRouter.toMain()
+					}
 				},
 				onFailure = { error ->
 					error.message?.let(::showMessage)
@@ -103,7 +116,8 @@ class RegisterViewModel @Inject constructor(
 	private fun startPasswordValidator() {
 		val latinCharConditionRegex = Regex(AuthConstants.RegexPatterns.PASSWORD_LETTER_CONDITION)
 		val digitConditionRegex = Regex(AuthConstants.RegexPatterns.PASSWORD_DIGIT_CONDITION)
-		val specialCharConditionRegex = Regex(AuthConstants.RegexPatterns.PASSWORD_SPECIAL_CHAR_CONDITION)
+		val specialCharConditionRegex =
+			Regex(AuthConstants.RegexPatterns.PASSWORD_SPECIAL_CHAR_CONDITION)
 
 		_passwordFlow
 			.debounce(Constants.Delays.HALF_OF_SECOND)
@@ -145,7 +159,7 @@ class RegisterViewModel @Inject constructor(
 	}
 
 	sealed interface News {
-		data object OnRegistered: News
+		data object OnRegistered : News
 	}
 
 	init {
