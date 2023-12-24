@@ -1,6 +1,5 @@
 import com.archoid.dependencies.Dependencies
 import com.archoid.modules.Modules
-import com.archoid.utils.withApiProject
 import com.archoid.utils.withLibs
 import com.archoid.utils.withProjects
 

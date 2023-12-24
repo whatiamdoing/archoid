@@ -45,7 +45,7 @@ android {
 			dimension = "type"
 		}
 
-		create("mvi") {
+		create("elm") {
 			dimension = "type"
 		}
 	}
