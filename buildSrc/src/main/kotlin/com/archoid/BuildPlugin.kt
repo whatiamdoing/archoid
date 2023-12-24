@@ -62,7 +62,7 @@ private fun Project.addAndroidLibraryExtensionConfig() = libraryExtension.apply 
 			dimension = "type"
 		}
 
-		create("mvi") {
+		create("elm") {
 			dimension = "type"
 		}
 	}
