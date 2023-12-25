@@ -7,4 +7,8 @@ object Constants {
 		const val HALF_OF_SECOND = 500L
 	}
 
+	object Others {
+		const val EMPTY_STR = ""
+	}
+
 }
