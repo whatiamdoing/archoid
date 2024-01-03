@@ -92,10 +92,17 @@ internal class RegisterFragment: ElmFragment<State, News>(layoutRes = R.layout.f
 
 	override fun renderState(state: State) {
 		with(viewBinding) {
-			setPasswordValidationState(state = state.passwordValidation)
-			confirmPasValidIndicatorMatch.setValidationState(valid = state.isPasswordConfirmMatch)
 			btnRegister.isEnabled = state.isRegisterAvailable
 			btnRegister.isLoading = state.isRegisterInProgress
+
+			diffState(state) {
+				ifChanged(State::passwordValidation) { passwordValidation ->
+					setPasswordValidationState(state = passwordValidation)
+				}
+				ifChanged(State::isPasswordConfirmMatch) { match ->
+					confirmPasValidIndicatorMatch.setValidationState(valid = match)
+				}
+			}
 		}
 	}
 

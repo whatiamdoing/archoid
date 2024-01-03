@@ -9,9 +9,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.archoid.core_ui.feature.ElmFeature
+import com.archoid.core_ui.feature.StateDiffer
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 abstract class ElmFragment<State, News>(
@@ -20,6 +23,12 @@ abstract class ElmFragment<State, News>(
 
 	@Inject
 	lateinit var viewModelFactory: ViewModelProvider.Factory
+
+	private var currentViewState: State? = null
+
+	private val stateDiffer = StateDiffer(
+		getCurrentViewState = ::currentViewState
+	)
 
 	abstract val feature: ElmFeature<State, *, *, News>
 
@@ -31,7 +40,10 @@ abstract class ElmFragment<State, News>(
 
 		feature.stateFlow
 			.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-			.onEach(::renderState)
+			.onEach { state ->
+				renderState(state = state)
+				currentViewState = state
+			}
 			.launchIn(lifecycleScope)
 
 		feature.newsFlow
@@ -43,5 +55,23 @@ abstract class ElmFragment<State, News>(
 	abstract fun renderState(state: State)
 
 	abstract fun handleNews(news: News)
+
+	protected fun diffState(
+		state: State,
+		block: StateDiffer<State>.() -> Unit
+	) = stateDiffer.with(
+		state = state,
+		block = block
+	)
+
+	init {
+		lifecycleScope.launch {
+			repeatOnLifecycle(
+				state = Lifecycle.State.STARTED
+			) {
+				currentViewState = null
+			}
+		}
+	}
 
 }
